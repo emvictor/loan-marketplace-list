@@ -1,6 +1,7 @@
 # Practical interview template
 
 Practical interview template is a personal project built to help in interviews involving practical tests.
+Not my project from the beggining, but with a few tweaks to work properly.
 
 # What is included
 
