@@ -35,5 +35,11 @@ const comparator = (itemA: MarketplaceItem, itemB: MarketplaceItem): number => {
   if (itemA.expiresAt < itemB.expiresAt) {
     return -1;
   }
+
+  if (itemA.expiresAt === itemB.expiresAt) {
+    const position =
+      itemA.totalRequestedAmount < itemB.totalRequestedAmount ? 1 : -1;
+    return position;
+  }
   return 1;
 };

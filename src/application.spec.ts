@@ -112,6 +112,97 @@ describe("generateMarketplaceList()", () => {
       )
     ).toStrictEqual(categoryCaseExpectedResult);
   });
+  it("Should sort by totalRequestedAmount", () => {
+    const categoryCaseMockedInvestmentList: Investment[] = [
+      {
+        id: "1",
+        totalInvestedAmountCents: 10000,
+        loanId: "10",
+      },
+      {
+        id: "2",
+        totalInvestedAmountCents: 15000,
+        loanId: "10",
+      },
+      {
+        id: "3",
+        totalInvestedAmountCents: 21000,
+        loanId: "11",
+      },
+      {
+        id: "4",
+        totalInvestedAmountCents: 13000,
+        loanId: "12",
+      },
+      {
+        id: "5",
+        totalInvestedAmountCents: 17000,
+        loanId: "12",
+      },
+    ];
+    const categoryCaseMockedLoanList: Loan[] = [
+      {
+        id: "10",
+        totalRequestedAmountCents: 50000,
+        category: Category.Z,
+        expiresAt: new Date("2020-03-18"),
+      },
+      {
+        id: "11",
+        totalRequestedAmountCents: 15000,
+        category: Category.Y,
+        expiresAt: new Date("2020-03-18"),
+      },
+      {
+        id: "12",
+        totalRequestedAmountCents: 10000,
+        category: Category.Z,
+        expiresAt: new Date("2020-03-18"),
+      },
+      {
+        id: "13",
+        totalRequestedAmountCents: 50000,
+        category: Category.X,
+        expiresAt: new Date("2020-03-18"),
+      },
+    ];
+    const categoryCaseExpectedResult: MarketplaceItem[] = [
+      {
+        id: "12",
+        totalRequestedAmount: 100,
+        category: Category.Z,
+        totalInvestmentAmount: 300,
+        expiresAt: new Date("2020-03-18"),
+      },
+      {
+        id: "10",
+        totalRequestedAmount: 500,
+        category: Category.Z,
+        totalInvestmentAmount: 250,
+        expiresAt: new Date("2020-03-18"),
+      },
+      {
+        id: "13",
+        totalRequestedAmount: 500,
+        category: Category.X,
+        totalInvestmentAmount: 0,
+        expiresAt: new Date("2020-03-18"),
+      },
+      {
+        id: "11",
+        totalRequestedAmount: 150,
+        category: Category.Y,
+        totalInvestmentAmount: 210,
+        expiresAt: new Date("2020-03-18"),
+      },
+    ];
+    expect(
+      generateMarketplaceList(
+        categoryCaseMockedLoanList,
+        categoryCaseMockedInvestmentList
+      )
+    ).toStrictEqual(categoryCaseExpectedResult);
+  });
   it("Should order by expiresAt", () => {
     const expiresAtMockedInvestmentList: Investment[] = [
       {
